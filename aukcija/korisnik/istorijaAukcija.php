@@ -25,16 +25,13 @@
 		echo('<div class="box1">');
 				echo('<div class="lfl"><form action="'. $_SERVER['PHP_SELF'] .'" method="post">'); 
 				echo('<input type="hidden" name="txtid_sifrao" value="'. $red['id_predmeta'] .'" />');
-
 				echo('<span class="naslov"><h3>'. $red['naziv_predmeta'] . '</h3>');								
-				echo('<span class="kropis">' . substr($red['opis_predmeta'], 0, 330) . '...</span></br>'); 								
+				echo('<span class="kropis">' . str_replace("/br","",substr($red['opis_predmeta'], 0, 330)) . '...</span></br>'); 								
 				echo('</div>');
 				echo('<div class="lfs">'); 
 				echo('<br><input class="form-control2" id="dugme" type="submit" name="btnOAukciji" value="otvori" /><br><br>');
 				echo('<span class="trenutnaCena">Zavrsena aukcija</span><br>');
-				echo('<span class="trenutnaCena">Cena: ' . $red['trenutna_cena'] .' rsd </span><br>');				
-			
-				
+				echo('<span class="trenutnaCena">Cena: ' . $red['trenutna_cena'] .' rsd </span><br>');							
 				echo('</div>');
 				echo('<div class="lfd"><img src="../' . $red['slika_predmeta'] . '"></div>');
 				echo('</form></div>');
@@ -80,8 +77,6 @@ include "left.php"
 <div class="lf">
 	<?php
 	$db = mysqli_connect($hostname,$dbusername,$dbpassword,$database);
-	//if (is_resource($rezultatCitanja))
-	//{
 		$ukupnoOglasa = mysqli_num_rows($rezultatCitanja);
 		if ($ukupnoOglasa > 0)
 		{
@@ -94,7 +89,6 @@ include "left.php"
 	  $db = mysqli_connect($hostname,$dbusername,$dbpassword,$database);
 $tv = time();
 	  $sql="SELECT  id_predmeta, id_korisnika_sk, naziv_predmeta, opis_predmeta, slika_predmeta, vreme_isteka, trenutna_cena FROM predmet WHERE vreme_isteka < " . $tv . " AND id_korisnika_sk = " . $_SESSION['ID'] . " AND (naziv_predmeta LIKE '%" . $name .  "%' or opis_predmeta LIKE '%" . $name .  "% ORDER BY id_predmeta DESC;')"; 
-
 	
 	  $result=mysqli_query($db, $sql); 
 	
@@ -103,12 +97,11 @@ $tv = time();
 	  echo('&nbsp;&nbsp;Istorija aukcija: <a href="istorijaAukcija.php" id="pp">ponisti pretragu</a><br />');
 	  while ($red = mysqli_fetch_array($result))
 			{
-				ispisAukcije($red);
-				
+				ispisAukcije($red);				
 			}	   
 	  } 
 	  else{ 
-	  echo  "<p>Please enter a search query</p> <a href='aukcije.php' id='pp'>ponisti pretragu</a>"; 
+	  echo  "<p>Unesite rec za pretragu</p> <a href='aukcije.php' id='pp'>ponisti pretragu</a>"; 
 	  } 
 	  } 
 	  } 			
@@ -123,11 +116,6 @@ $tv = time();
 			}
 			}
 		}
-	//}
-	//else
-	//{
-		//echo($rezultatCitanja);
-	//}
 	?>
 	</div>
 </div>

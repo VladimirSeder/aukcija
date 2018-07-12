@@ -1,8 +1,5 @@
 <?php
 require_once('conn.php');
-/*set_error_handler(function($errno, $errstr) {
-    return strpos($errstr, 'mysql_') === 0;
-}, E_DEPRECATED);*/
 
 	function GetImageExtension($imagetype)
 
@@ -37,9 +34,6 @@ require_once('conn.php');
 		$link = mysqli_connect($hostname,$dbusername,$dbpassword,$database);
 		if ($link)
 		{
-			//$bazaSelektovana = mysql_select_db($database, $link);
-			//if ($bazaSelektovana)
-			//{
 				$upit = 'SELECT id_korisnika, ime_korisnika, email_korisnika, sifra_korisnika, prezime_korisnika, adresa_korisnika, telefon_korisnika, profilna_slika
 				FROM korisnik
 				';
@@ -49,11 +43,6 @@ require_once('conn.php');
 					$rezultat = 'Došlo je do greške prilikom čitanja podataka iz baze.<br />';
 					$rezultat .=  mysqli_errno($link) . ': ' . mysqli_error($link) . '<br />';
 				}
-			//}
-			//else
-			//{
-				//$rezultat = 'Došlo je do greške prilikom selektovanja baze podataka.<br />';
-			//}
 		mysqli_close($link);
 		}
 		else
@@ -63,41 +52,6 @@ require_once('conn.php');
 		return $rezultat;
 	}
 		
-	/*function ucitajAukciju()
-	{
-		global $hostname;
-		global $dbusername;
-		global $dbpassword;
-		global $database;
-		$rezultat = false;
-		$link = mysql_connect($hostname,$dbusername,$dbpassword);
-		if ($link)
-		{
-			$bazaSelektovana = mysql_select_db($database, $link);
-			if ($bazaSelektovana)
-			{
-				$tv = time();
-				$upit = 'SELECT id_predmeta, id_korisnika_sk, naziv_predmeta, opis_predmeta, pocetna_cena, nacin_placanja, nacin_isporuke, slika_predmeta, vreme_postavljanja, vreme_isteka, trenutna_cena
-				FROM predmet WHERE vreme_isteka > ' . $tv . ' ORDER BY id_predmeta DESC;';
-				$rezultat = mysql_query($upit);
-				if ($rezultat === false)
-				{
-					$rezultat = 'Došlo je do greške prilikom čitanja podataka iz baze.<br />';
-					$rezultat .=  mysql_errno($link) . ': ' . mysql_error($link) . '<br />';
-				}
-			}
-			else
-			{
-				$rezultat = 'Došlo je do greške prilikom selektovanja baze podataka.<br />';
-			}
-		mysql_close($link);
-		}
-		else
-		{
-			$rezultat = 'Konekcija sa bazom podataka se ne može uspostaviti.<br />';
-		}
-		return $rezultat;
-	}*/
 	function ucitajAukciju()
 	{
 		global $hostname;
@@ -108,9 +62,6 @@ require_once('conn.php');
 		$link = mysqli_connect($hostname,$dbusername,$dbpassword,$database);
 		if ($link)
 		{
-			//$bazaSelektovana = mysql_select_db($database, $link);
-			//if ($bazaSelektovana)
-			//{
 				$tv = time();
 				$upit = 'SELECT id_predmeta, id_korisnika_sk, naziv_predmeta, opis_predmeta, pocetna_cena, nacin_placanja, nacin_isporuke, slika_predmeta, vreme_postavljanja, vreme_isteka, trenutna_cena
 				FROM predmet WHERE vreme_isteka > ' . $tv . ' ORDER BY id_predmeta DESC;';
@@ -120,11 +71,6 @@ require_once('conn.php');
 					$rezultat = 'Došlo je do greške prilikom čitanja podataka iz baze.<br />';
 					$rezultat .=  mysqli_errno($link) . ': ' . mysqli_error($link) . '<br />';
 				}
-			//}
-			/*else
-			{
-				$rezultat = 'Došlo je do greške prilikom selektovanja baze podataka.<br />';
-			}*/
 		mysqli_close($link);
 		}
 		else

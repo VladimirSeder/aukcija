@@ -25,7 +25,6 @@
     if (isset($_POST['btnRegist']))
 	{
 		$registruj = array('naziv_predmeta' => mysqli_real_escape_string($con, $_POST['txtNaziv']), 'opis_predmeta' => mysqli_real_escape_string($con, $_POST['txtOpis']), 'pocetna_cena' => mysqli_real_escape_string($con, $_POST['txtPocCena']), 'nacin_placanja' => mysqli_real_escape_string($con, $_POST['txtNacinPlacanja']), 'nacin_isporuke' => mysqli_real_escape_string($con, $_POST['txtNacinIsporuke']), 'slika_predmeta' => mysqli_real_escape_string($con, $_POST['pslika']), 'vreme_isteka' => mysqli_real_escape_string($con, $_POST['txtVremeIsteka']));
-
 	}
 
 	if (mysqli_connect_errno())
@@ -55,7 +54,6 @@
 		if ((!empty($_POST["txtNaziv"]))&&(!empty($_POST["txtOpis"]))&&(!empty($_POST["txtPocCena"]))&&(is_numeric($_POST["txtPocCena"]))&&(!empty($_POST["txtNacinPlacanja"]))&&(!empty($_POST["txtNacinIsporuke"]))&&(!empty($_POST["txtVremeIsteka"]))&&(is_numeric($_POST["txtVremeIsteka"]))/*&&(!empty($_POST["uploadedimage"]))*/)
 			{
 
-
 		$query_upload='INSERT into predmet (id_korisnika_sk, naziv_predmeta, opis_predmeta, pocetna_cena, nacin_placanja, nacin_isporuke, slika_predmeta, vreme_postavljanja, vreme_isteka, trenutna_cena)' .
 		'VALUES ("'. $idKorisnika .'", "'. $registruj['naziv_predmeta'] .'", "'. $registruj['opis_predmeta'] .'", "'. $registruj['pocetna_cena'] .'", "'. $registruj['nacin_placanja'] .'", "'. $registruj['nacin_isporuke'] . '", "'. $img_path . '", "'. time() . '", "'. vremeIsteka() . '", "'. $registruj['pocetna_cena'] .'")';
 		$rezultatSnimanja = 'Aukcija je uspesno zapoceta<br />';
@@ -75,19 +73,12 @@
 
 		if ((!empty($_POST["txtNaziv"]))&&(!empty($_POST["txtOpis"]))&&(!empty($_POST["txtPocCena"]))&&(is_numeric($_POST["txtPocCena"]))&&(!empty($_POST["txtNacinPlacanja"]))&&(!empty($_POST["txtNacinIsporuke"]))&&(!empty($_POST["txtVremeIsteka"]))&&(is_numeric($_POST["txtVremeIsteka"]))/*&&(!empty($_POST["uploadedimage"]))*/)
 			{
-			
-
 		$query_upload='INSERT into predmet (id_korisnika_sk, naziv_predmeta, opis_predmeta, pocetna_cena, nacin_placanja, nacin_isporuke, vreme_postavljanja, vreme_isteka, trenutna_cena)' .
 		'VALUES ("'. $idKorisnika .'", "'. $registruj['naziv_predmeta'] .'", "'. $registruj['opis_predmeta'] .'", "'. $registruj['pocetna_cena'] .'", "'. $registruj['nacin_placanja'] .'", "'. $registruj['nacin_isporuke'] . '", "'. time()  . '", "'. vremeIsteka() . '", "'. $registruj['pocetna_cena'] .'")';
-		
-		
-		
 
     mysqli_query($con, $query_upload) or die("error in $query_upload == ----> ".mysqli_error($con)); 
     $rezultatSnimanja = 'Aukcija je uspesno zapoceta<br />';
-			$_SESSION['txtNaziv'] = $_SESSION['txtOpis'] = $_SESSION['txtPocCena'] = $_SESSION['txtNacinPlacanja'] = $_SESSION['txtNacinIsporuke'] = $_SESSION['prof_slika'] = $_SESSION['txtVremePostavljanja'] = $_SESSION['txtVremeIsteka'] = "";
-
-		
+			$_SESSION['txtNaziv'] = $_SESSION['txtOpis'] = $_SESSION['txtPocCena'] = $_SESSION['txtNacinPlacanja'] = $_SESSION['txtNacinIsporuke'] = $_SESSION['prof_slika'] = $_SESSION['txtVremePostavljanja'] = $_SESSION['txtVremeIsteka'] = "";		
 		}
 	}
 	else{
@@ -122,7 +113,6 @@ include "left.php"
 	$nazivErr = $opisErr = $pocCenaErr = $nacinPlacanjaErr = $nacinIsporukeErr = $slikaErr = $vremePostavljanjaErr = $vremeIstekaErr = "";
 	$naziv = $opis = $pocCena = $nacinPlacanja = $nacinIsporuke = $slika = $vremePostavljanja = $vremeIsteka = "";
 
-
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		
 	if (empty($_POST["txtNaziv"])) {
@@ -145,8 +135,7 @@ include "left.php"
 	} else {
     $pocCena = test_input($_POST["txtPocCena"]);
 	}
-		
-	
+
 	if (empty($_POST["txtNacinPlacanja"])) {
     $nacinPlacanjaErr = "Nacin placanja je obavezan";
 	} else {
@@ -213,9 +202,6 @@ if (!empty($_POST["uploadedimage"])) {
 			<label>Slika predmeta:</label><br><?php //echo isset($_SESSION['prof_slika']) ? $_SESSION['prof_slika'] : ''; ?>
 			<input type="hidden" value="<?php echo isset($_SESSION['prof_slika']) ? $_SESSION['prof_slika'] : ''; ?>" name="pslika">
 			<input name="uploadedimage" class="form-control" class="btn btn-default" type="file"><span class="error"> <?php echo $slikaErr;?></span>
-
-			
-
 			<br>
 			<label>Trajanje aukcije u danima:  </label><span class="error"> <?php echo $vremeIstekaErr;?></span>
             <input type="text" class="form-control" placeholder="unesite trajanje aukcije" value="<?php echo isset($_SESSION['txtVremeIsteka']) ? $_SESSION['txtVremeIsteka'] : ''; ?>" name="txtVremeIsteka">

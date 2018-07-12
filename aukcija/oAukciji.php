@@ -46,27 +46,20 @@ include "left.php"
 <div class="content1">
 	<div class="nf" >
 	<?php
-	//if (is_resource($rezultatCitanja))
-	//{
 		while ($red = mysqli_fetch_array($rezultatCitanja))
 		{
 			if ($sesijao == $red['id_predmeta'])
 			{	
 	echo('<form action="'. $_SERVER['PHP_SELF'] .'" method="post">'); 
-
 	echo('<span class="naslov"><h2>'. $red['naziv_predmeta'] . '</h2><br>');
-	echo('</div>
-	<br>
-	<div class="of" >
+	echo('</div><br><div class="of" >
 	<h4>Opis oglasa</h4>');
 	echo('<span class="opis">' . str_replace("/br","<br>",$red['opis_predmeta']) . '</span><br><br>');
-
 	echo('</div>
 	</div>
 	<div class="content22">
 	<div class="sf">');
 	echo('<img src="' . $red['slika_predmeta'] . '">');
-
 	echo('</form>');
 	echo('</div>
 	<div class="kf" >');
@@ -85,17 +78,12 @@ include "left.php"
 		  else
 			  $pv = round ($pv/86400) . "d";
 		  
-		  echo('<span class="trenutnaCena">Nacin placanja: ' . $red['nacin_placanja'] .' rsd </span><br>');
-		  echo('<span class="trenutnaCena">Nacin isporuke: ' . $red['nacin_isporuke'] .' rsd </span><br>');
-		  echo('<span class="trenutnaCena">Trenutna cena: ' . $red['trenutna_cena'] .' rsd </span><br>');				
-				
-		 
-		 
-		 		 
-				
-				echo('<span class="trenutnaCena">Preostalo vreme: '. $pv  . '</span><br>');
+		  echo('<span class="trenutnaCena">Nacin placanja: ' . $red['nacin_placanja'] .'</span><br>');
+		  echo('<span class="trenutnaCena">Nacin isporuke: ' . $red['nacin_isporuke'] .'</span><br>');
+		  echo('<span class="trenutnaCena">Trenutna cena: ' . $red['trenutna_cena'] .' rsd </span><br>');					
+		  echo('<span class="trenutnaCena">Preostalo vreme: '. $pv  . '</span><br>');
 
-			}}//}	
+			}}	
 	?>	
 	</div>
 	</div>

@@ -17,7 +17,6 @@
 	{
 		$rezultatBrisanja = obrisiAukciju($_POST['txtid_sifrao']);
 	}
-	$rezultatCitanja = ucitajAukciju();
 	$rezultatCitanja = ucitajMojeAukcije();
 	
 	function ispisAukcije($red){
@@ -39,23 +38,18 @@
 		echo('<div class="box1">');
 				echo('<div class="lfl"><form action="'. $_SERVER['PHP_SELF'] .'" method="post">'); 
 				echo('<input type="hidden" name="txtid_sifrao" value="'. $red['id_predmeta'] .'" />');
-
 				echo('<span class="naslov"><h3>'. $red['naziv_predmeta'] . '</h3>');								
-				echo('<span class="kropis">' . substr($red['opis_predmeta'], 0, 330) . '...</span></br>'); 								
+				echo('<span class="kropis">' . str_replace("/br","",substr($red['opis_predmeta'], 0, 330)) . '...</span></br>'); 								
 				echo('</div>');
 				echo('<div class="lfs">'); 
 				echo('<br><input class="form-control2" id="dugme" type="submit" name="btnOAukciji" value="otvori" /><br><br>');
-				echo('<span class="trenutnaCena">Trenutna cena: ' . $red['trenutna_cena'] .' rsd </span><br>');				
-				
-		 		 
-				
+				echo('<span class="trenutnaCena">Trenutna cena: ' . $red['trenutna_cena'] .' rsd </span><br>');								
 				echo('<span class="trenutnaCena">Preostalo vreme: '. $pv  . '</span><br>');
 				echo('<input class="form-control2" id="dugme" type="submit" name="btnObrisiAukciju" value="obrisi" onclick="return checkDelete()"/>'); 
 				echo('</div>');
 				echo('<div class="lfd"><img src="../' . $red['slika_predmeta'] . '"></div>');
 				echo('</form></div>');
-				echo('</br>');
-			  
+				echo('</br>');			  
 	}
 	
 ?>
@@ -101,12 +95,9 @@ include "left.php"
 <div class="lf">
 	<?php
 	$db = mysqli_connect($hostname,$dbusername,$dbpassword,$database);
-	//if (is_resource($rezultatCitanja))
-	//{
 		$ukupnoOglasa = mysqli_num_rows($rezultatCitanja);
 		if ($ukupnoOglasa > 0)
 		{
-			$id = "";
 	  if(isset($_POST['submitsearch'])&&!empty($_POST['namesearch'])){ 
 	  if(isset($_GET['go'])){ 
 	  if(preg_match("/^[  0-9a-zA-Z]+/", mysqli_real_escape_string($db, $_POST['namesearch']))){ 
@@ -116,19 +107,17 @@ include "left.php"
 $tv = time();
 	  $sql="SELECT  id_predmeta, naziv_predmeta, opis_predmeta, slika_predmeta, vreme_isteka, trenutna_cena FROM predmet WHERE vreme_isteka > " . $tv . " AND id_korisnika_sk = " . $_SESSION['ID'] . " AND (naziv_predmeta LIKE '%" . $name .  "%' or opis_predmeta LIKE '%" . $name .  "% ORDER BY id_predmeta DESC;')"; 
 
-
 	  $result=mysqli_query($db, $sql); 
 	
 	  $ukupnoOglasa2 = mysqli_num_rows($result);
 	  echo('&nbsp;&nbsp;Ukupno aukcija: ' . $ukupnoOglasa2 . '<a href="mojeAukcije.php" id="pp">ponisti pretragu</a><br />');
 	  while ($red = mysqli_fetch_array($result))
 			{
-				ispisAukcije($red);
-				
+				ispisAukcije($red);				
 			}	   
 	  } 
 	  else{ 
-	  echo  "<p>Please enter a search query</p> <a href='aukcije.php' id='pp'>ponisti pretragu</a>"; 
+	  echo  "<p>Unesite rec za pretragu</p> <a href='aukcije.php' id='pp'>ponisti pretragu</a>"; 
 	  } 
 	  } 
 	  } 			
@@ -136,16 +125,10 @@ $tv = time();
 				echo('&nbsp;&nbsp;Ukupno aukcija: ' . $ukupnoOglasa . '<br />');
 			while ($red = mysqli_fetch_array($rezultatCitanja))
 			{
-				ispisAukcije($red);
-				
+				ispisAukcije($red);				
 			}
 			}
 		}
-	//}
-	//else
-	//{
-		//echo($rezultatCitanja);
-	//}
 	?>
 	</div>
 </div>

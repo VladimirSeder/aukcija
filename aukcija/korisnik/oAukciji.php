@@ -19,20 +19,12 @@
 	$rezultatSnimanja = '';
 	$_SESSION['txtPonuda'] = "";
 	header("Refresh:60");
-	
-	
+		
 	if (isset($_POST['btnPonuda'])) {
 		$_SESSION['txtPonuda'] = $_POST['txtPonuda'];
-
 	}
 	$rezultatSnimanja = '';
 	$con = mysqli_connect($hostname,$dbusername,$dbpassword,$database);
-
-	
-	
-		
-		
-
 	
 ?>
 <!DOCTYPE html>
@@ -68,27 +60,22 @@ include "left.php"
 <div class="content1">
 	<div class="nf" >
 	<?php
-	//if (is_resource($rezultatCitanja))
-	//{
 		while ($red = mysqli_fetch_array($rezultatCitanja))
 		{
 			if ($sesijao == $red['id_predmeta'])
 			{	
 	echo('<form action="'. $_SERVER['PHP_SELF'] .'" method="post">'); 
-
 	echo('<span class="naslov"><h2>'. $red['naziv_predmeta'] . '</h2><br>');
 	echo('</div>
 	<br>
 	<div class="of" >
 	<h4>Opis oglasa</h4>');
 	echo('<span class="opis">' . str_replace("/br","<br>",$red['opis_predmeta']) . '</span><br><br>');
-
 	echo('</div>
 	</div>
 	<div class="content22">
 	<div class="sf">');
 	echo('<img src="../' . $red['slika_predmeta'] . '">');
-
 	echo('</form>');
 	echo('</div>
 	<div class="kf" >');
@@ -107,13 +94,10 @@ include "left.php"
 		  else
 			  $pv = round ($pv/86400) . "d";
 		  
-		  echo('<span class="trenutnaCena">Nacin placanja: ' . $red['nacin_placanja'] .' rsd </span><br>');
-		  echo('<span class="trenutnaCena">Nacin isporuke: ' . $red['nacin_isporuke'] .' rsd </span><br>');
-		  
-		  echo('<span class="trenutnaCena">Trenutna cena: ' . $red['trenutna_cena'] .' rsd </span><br>');				
-				
-				echo('<span class="trenutnaCena">Preostalo vreme: '. $pv  . '</span><br>');
-				
+				echo('<span class="trenutnaCena">Nacin placanja: ' . $red['nacin_placanja'] .'</span><br>');
+				echo('<span class="trenutnaCena">Nacin isporuke: ' . $red['nacin_isporuke'] .'</span><br>');		  
+				echo('<span class="trenutnaCena">Trenutna cena: ' . $red['trenutna_cena'] .' rsd </span><br>');								
+				echo('<span class="trenutnaCena">Preostalo vreme: '. $pv  . '</span><br>');				
 				echo('<form action="oAukciji.php" enctype="multipart/form-data" method="post">');
 				if($red['id_korisnika_sk']!=$_SESSION['ID']&&$pv>0){
 				echo('<input type="text" class="form-control" placeholder="Unesite ponudu" name="txtPonuda">');
@@ -122,8 +106,6 @@ include "left.php"
 				else if($red['id_korisnika_sk']==$_SESSION['ID']){
 					
 					$db = mysqli_connect($hostname,$dbusername,$dbpassword,$database);
-	//if (is_resource($rezultatCitanjaP))
-	//{
 		$ukupnoPonuda = mysqli_num_rows($rezultatCitanjaP);
 		if ($ukupnoPonuda > 0&&$red['vreme_isteka']>$tv)
 		{
@@ -144,26 +126,17 @@ include "left.php"
 				echo('<p>'. $redP['ime_korisnika'] .' '. $redP['prezime_korisnika'] .'<br>');
 				echo('Adresa: '. $redP['adresa_korisnika'] .'<br>');
 				echo('Telefon: '. $redP['telefon_korisnika'].'</p>');
-				
 
 		}
 		else if ($ukupnoPonuda <1&&$red['vreme_isteka']<$tv){
 			echo('<p>Aukcija se zavrsila bez ponuda</p>');
-		}
-		
-	//}
-	//else
-	//{
-		//echo($rezultatCitanja);
-	//}
-					
+		}					
 				}
 				
 				if (mysqli_connect_errno())
 		{
 		echo "Failed to connect to MySQL: " . mysqli_connect_error();
 		}
-
 			
 			if($red['trenutna_cena'] > $_SESSION['txtPonuda'] && isset($_POST['btnPonuda'])){
 			$rezultatSnimanja = 'Ponuda mora biti veca od trenutne cene<br />';
@@ -173,23 +146,15 @@ include "left.php"
 			$query_upload='INSERT into ponuda (id_predmeta_sk, id_korisnika_sk, vrednost_ponude, vreme_ponude)' .
 		'VALUES ("'. $_SESSION['aukcija'] .'", "'. $_SESSION['ID'] .'", "'. $_SESSION['txtPonuda'] .'", "'. time()  . '")';
 		$query_upload2='UPDATE predmet SET trenutna_cena = "' . $_POST['txtPonuda'] .'" WHERE id_predmeta = "'.$_SESSION['aukcija'].'"';
-
 		
 		mysqli_query($con, $query_upload) or die("error in $query_upload == ----> ".mysqli_error($con)); 
 		mysqli_query($con, $query_upload2) or die("error in $query_upload == ----> ".mysqli_error($con)); 
     $rezultatSnimanja = 'Ponuda je poslata<br />';
 	$_SESSION['txtPonuda'] = "";
-header("Refresh:2");
-		
-		}
-				
-				
-				
-				
+	header("Refresh:2");		
+		}			
 				echo($rezultatSnimanja);
-
-			}}//}	
-			
+			}}			
 	
 	?>	
 	</div>

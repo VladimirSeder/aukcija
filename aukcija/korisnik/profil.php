@@ -80,8 +80,7 @@ $row = mysqli_fetch_array($result)
 	<div class="sf">');
 	echo('<img src="../' . $row['profilna_slika'] . '">');
 	echo('</div>
-	<div class="kf" >');
-			
+	<div class="kf" >');			
 	echo('<form action="'. $_SERVER['PHP_SELF'] .'" method="post">');
 	echo('<input type="hidden" name="txtid_sifra" value="'. $row['id_korisnika'] .'" />'); 
 	echo('<input class="form-control2" id="dugme" type="submit" name="btnObrisiProfil" value="Obrisite profil" onclick="return checkDelete()"/>'); 

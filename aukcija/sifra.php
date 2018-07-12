@@ -4,16 +4,11 @@
 	$resetErr="";
 	if (isset($_POST['button2'])) {
 		$_SESSION['txtEmail2'] = $_POST['txtEmail'];	
-	
-
-
-
 
 $con = mysqli_connect($hostname,$dbusername,$dbpassword,$database);
 
 if(empty($_POST['txtEmail']) || empty($_POST['txtOdgovor']))
 {
-
 	$resetErr = "Unesite email i odgovor";
 }
 else
@@ -36,18 +31,14 @@ header("location:Korisnik/index.php");
 			}
 			else
 			{
-
 				$resetErr = "Pogresan odgovor";
-
 			}
 		}
 	}
 	else
 	{
-
 		$resetErr = "Nepostojeci email";
-	}
-	
+	}	
 }
 mysqli_close($con);
 }
@@ -82,8 +73,7 @@ include "left.php"
 <div class="content">
 <div class="content2">
 <form id="form2" method="post" action="sifra.php">
-<br>
-			
+<br>			
 			<label>Email:  </label>
             <input type="text" class="form-control" placeholder="email" value="<?php echo isset($_SESSION['txtEmail2']) ? $_SESSION['txtEmail2'] : ''; ?>" name="txtEmail">
 			<br>

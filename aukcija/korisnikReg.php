@@ -209,11 +209,11 @@ include "left.php"
 			<label>Telefon:  </label><span class="error"> <?php echo $telefonErr;?></span>
             <input type="text" class="form-control" placeholder="unesite telefon" value="<?php echo isset($_SESSION['txtTelefon']) ? $_SESSION['txtTelefon'] : ''; ?>" name="txtTelefon">						
 			<br>
-			<label>Profilna slika:</label><br><?php //echo isset($_SESSION['prof_slika']) ? $_SESSION['prof_slika'] : ''; ?>
+			<label>Profilna slika:</label><br>
 			<input type="hidden" value="<?php echo isset($_SESSION['prof_slika']) ? $_SESSION['prof_slika'] : ''; ?>" name="pslika">
 			<input name="uploadedimage" class="form-control" class="btn btn-default" type="file"><span class="error"> <?php echo $slikaErr;?></span>
             <br>
-			<label>Sigurnosno pitanje:  </label><br>
+			<label>Sigurnosno pitanje:  </label> (sluzi za resetovanje sifre)<br>
 			<select name="txtPitanje" class="form-control" id="txtPitanje">
 						<option selected="selected">Koja je tvoja omiljena knjiga?</option>
                         <option>Model tvog prvog automobila?</option>

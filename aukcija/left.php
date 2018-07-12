@@ -6,15 +6,12 @@ require_once('conn.php');
 $loginErr="";
 	if (isset($_POST['button'])) {
 	$_SESSION['txtEmail'] = $_POST['txtEmail'];
-	
-
 
 	$con = mysqli_connect($hostname,$dbusername,$dbpassword,$database);
 	
 if(empty($_POST['txtEmail']) || empty($_POST['txtPass']))
 {
-	$loginErr = "Unesite email i sifru";
-	
+	$loginErr = "Unesite email i sifru";	
 }
 else
 {
@@ -36,16 +33,13 @@ header("location:korisnik/index.php");
 			}
 			else
 			{
-
 				$loginErr = "Pogresna sifra";
-
 			}
 		}
 	}
 	else
 	{
 		$loginErr = "Nepostojeci email";
-
 	}
 }
 

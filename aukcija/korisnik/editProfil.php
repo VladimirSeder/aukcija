@@ -193,8 +193,6 @@ function test_input($data) {
 	}
 	?>
 	<?php
-	//if (is_resource($rezultatCitanja))
-	//{
 		while ($red = mysqli_fetch_array($rezultatCitanja))
 		{
 			if ($_SESSION['ID'] == $red['id_korisnika'])
@@ -226,7 +224,7 @@ function test_input($data) {
 			<br>
 			<input type="submit" class="form-control" name="btnRegist"  value="Pošalji"/>
 			</form>
-			<?php }}//}	?>
+			<?php }}	?>
 			</div>
 			</div>
 		</div>
