@@ -88,7 +88,7 @@ include "left.php"
 
 	  $db = mysqli_connect($hostname,$dbusername,$dbpassword,$database);
 $tv = time();
-	  $sql="SELECT  id_predmeta, id_korisnika_sk, naziv_predmeta, opis_predmeta, slika_predmeta, vreme_isteka, trenutna_cena FROM predmet WHERE vreme_isteka < " . $tv . " AND id_korisnika_sk = " . $_SESSION['ID'] . " AND (naziv_predmeta LIKE '%" . $name .  "%' or opis_predmeta LIKE '%" . $name .  "% ORDER BY id_predmeta DESC;')"; 
+	  $sql="SELECT  id_predmeta, id_korisnika_sk, naziv_predmeta, opis_predmeta, slika_predmeta, vreme_isteka, trenutna_cena FROM predmet WHERE vreme_isteka < " . $tv . " AND id_korisnika_sk = " . $_SESSION['ID'] . " AND (naziv_predmeta LIKE '%" . $name .  "%' or opis_predmeta LIKE '%" . $name .  "%') ORDER BY id_predmeta DESC;"; 
 	
 	  $result=mysqli_query($db, $sql); 
 	
