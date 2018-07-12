@@ -27,7 +27,7 @@ else
 $_SESSION['Name']=$row['ime_korisnika'];
 $_SESSION['email']=$row['email_korisnika'];
 $_SESSION['txtEmail2'] = "";
-header("location:Korisnik/index.php");
+header("location:korisnik/index.php");
 			}
 			else
 			{
